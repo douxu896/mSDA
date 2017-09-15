@@ -53,9 +53,9 @@ test_deepRep = msda.mSDA_lowDimApprox(test_data, prob_corruption, num_layers, su
 '''
 #without low dimensional approximation
 train_mappings, train_reps = msda.mSDA(train_data, prob_corruption, num_layers)
-train_deepRep = train_reps[:,:,-1]
+train_deepRep = train_reps[:][:][-1]
 #use same weights as on training features to transform test data
-test_deepRep = msda.mSDA(test_data, prob_corruption, num_layers, train_mappings)[1][:,:,-1]
+test_deepRep = msda.mSDA(test_data, prob_corruption, num_layers, train_mappings)[1][:][:][-1]
 #'''
 
 #sklearn requires (#data x #features) so transpose back
