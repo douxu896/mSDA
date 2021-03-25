@@ -43,8 +43,9 @@ def compute_reconstruction_mapping(data, prob_corruption):
 	scatter_matrix = np.dot(data.transpose(), data)
 	Q = scatter_matrix*(np.dot(feature_corruption_probs, feature_corruption_probs.transpose()))
 	Q[np.diag_indices_from(Q)] = feature_corruption_probs[:,0] * np.diag(scatter_matrix)
-	P = scatter_matrix * numpy.matlib.repmat(feature_corruption_probs, 1, num_features)
-
+	P = scatter_matrix * numpy.matlib.repmat(feature_corruption_probs.transpose(),
+						 num_features, 
+						 1)
 	#solve equation of the form x = BA^-1, or xA = B, or A.T x.T = B.T
 	A = Q + 10**-5*np.eye(num_features)
 	B = P#[:num_features - 1,:] #TODO maybe shouldn't subtract 1 (since then wouldn't be corrupting last real feature, instead of not corrupting bias)
